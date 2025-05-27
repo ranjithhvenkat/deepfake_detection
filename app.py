@@ -1,4 +1,10 @@
 # cnnvit_app.py
+import sys
+import types
+
+# Patch torch.classes to avoid introspection errors
+sys.modules['torch.classes'] = types.SimpleNamespace()
+
 import streamlit as st
 from PIL import Image
 import torch
@@ -7,6 +13,9 @@ from utils import load_model, transform_image
 from model import CNNViT 
 st.set_page_config(page_title="Fake vs Real Detector")
 st.title("🕵️ Fake vs Real Image Classifier")
+import os
+os.environ["STREAMLIT_WATCH_USE_POLLING"] = "true"
+
 
 # Load model
 @st.cache_resource
